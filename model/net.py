@@ -21,7 +21,7 @@ def get_model(args, device):
     # Model
     embeddingNet = None
     if (args.dataset == 'custom') or (args.dataset == 'vggface2'):
-        embeddingNet = embedding.EmbeddingResnet()
+        embeddingNet = embedding.EmbeddingResnet(args.arch)
     elif (args.dataset == 'mnist') or (args.dataset == 'fmnist'):
         embeddingNet = embedding.EmbeddingLeNet()
     else:
