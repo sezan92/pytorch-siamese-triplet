@@ -158,6 +158,8 @@ if __name__ == '__main__':
 
     parser.add_argument('--train_log_step', type=int, default=100, metavar='M',
                         help='Number of iterations after which to log the loss')
+    parser.add_argument('--arch', type = str, default ='resnet50',
+                       help="model architecture . default resnet50 . Choose from 'resnet18', 'resnet34', 'resnet50', 'resnet101','resnet152'")
 
     global args, device
     args = parser.parse_args()
