@@ -1,14 +1,29 @@
 import torch.nn as nn
 import torch.nn.functional as F
+from model.resnet import resnet18
+from model.resnet import resnet34
 from model.resnet import resnet50
+from model.resnet import resnet101
+from model.resnet import resnet152
 from config.base_config import cfg
 
 
 class EmbeddingResnet(nn.Module):
-    def __init__(self):
+    def __init__(self,model_name = 'resnet50'):
         super(EmbeddingResnet, self).__init__()
+        if model_name == 'resnet18':
+            resnet = resnet18(pretrained=True)
+        elif model_name == 'resnet34':
+            resnet = resnet34(pretrained=True)
+        elif model_name == 'resnet50':
+            resnet = resnet50(pretrained=True)
+        elif model_name == 'resnet101':
+            resnet = resnet101(pretrained=True)
+        elif model_name == 'resnet152':
+            resnet = resnet152(pretrained=True)
+        else:
+            raise ValueError('The model doesnt exist! Please choose from resnet18,resnet34,resnet50,resnet101,resnet152.')
 
-        resnet = resnet50(pretrained=True)
         self.features = nn.Sequential(resnet.conv1, resnet.bn1, resnet.relu, resnet.maxpool, resnet.layer1,
                                       resnet.layer2, resnet.layer3, resnet.layer4, resnet.avgpool)
         # Fix blocks
